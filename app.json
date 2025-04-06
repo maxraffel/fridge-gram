@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "fridgegram",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -36,6 +36,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "your-eas-project-id"
+      }
     }
   }
 }
