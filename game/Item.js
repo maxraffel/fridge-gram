@@ -1,30 +1,36 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { TouchableOpacity, Image, StyleSheet } from "react-native"
 import Timer from "./Timer"
 import MiniGame from "./MiniGame"
+import ClickDotMiniGame from "./MiniGame2"
 
 const Item = ({ item, onExpire, onComplete }) => {
   const [showMiniGame, setShowMiniGame] = useState(false)
+  const [selectedMiniGame, setSelectedMiniGame] = useState(null) // Track the selected mini-game
   const [timeLeft, setTimeLeft] = useState(item.expirationTime)
+  const timerRef = useRef(null) // Use a ref to store the timer for this specific item
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    timerRef.current = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
-          clearInterval(timer)
-          onExpire()
+          clearInterval(timerRef.current)
+          onExpire(item.id) // Pass the item's ID to onExpire
           return 0
         }
         return prevTime - 1
       })
     }, 1000)
 
-    return () => clearInterval(timer)
-  }, [onExpire])
+    return () => clearInterval(timerRef.current) // Clear the timer when the component unmounts
+  }, [onExpire, item.id])
 
   const handlePress = () => {
+    // Randomly select between MiniGame and ClickDotMiniGame
+    const randomGame = Math.random() < 0.5 ? "MiniGame" : "ClickDotMiniGame"
+    setSelectedMiniGame(randomGame)
     setShowMiniGame(true)
   }
 
@@ -38,7 +44,11 @@ const Item = ({ item, onExpire, onComplete }) => {
   }
 
   if (showMiniGame) {
-    return <MiniGame onComplete={handleMiniGameComplete} onExit={handleMiniGameExit} />
+    if (selectedMiniGame === "MiniGame") {
+      return <MiniGame onComplete={handleMiniGameComplete} onExit={handleMiniGameExit} />
+    } else if (selectedMiniGame === "ClickDotMiniGame") {
+      return <ClickDotMiniGame onComplete={handleMiniGameComplete} onExit={handleMiniGameExit} />
+    }
   }
 
   return (
@@ -63,4 +73,3 @@ const styles = StyleSheet.create({
 })
 
 export default Item
-

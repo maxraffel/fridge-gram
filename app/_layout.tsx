@@ -41,7 +41,9 @@ export default function RootLayout() {
                 <Ionicons name="home" size={size} color={color} />
               ),
               listeners: {
-                tabPress: () => {
+                tabPress: (e: { preventDefault: () => void }) => {
+                  // Always emit the scrollToTop event
+                  console.log("Emitting scrollToTop event from dashboard tab");
                   eventEmitter.emit('scrollToTop');
                 },
               },
@@ -54,6 +56,11 @@ export default function RootLayout() {
               tabBarIcon: ({ color, size }: { color: string; size: number }) => (
                 <Ionicons name="game-controller" size={size} color={color} />
               ),
+              listeners: {
+                tabPress: (e: { preventDefault: () => void }) => {
+                  eventEmitter.emit('scrollToTop');
+                },
+              },
             }}
           />
           <Tabs.Screen
@@ -63,26 +70,31 @@ export default function RootLayout() {
               tabBarIcon: ({ color, size }: { color: string; size: number }) => (
                 <Ionicons name="person" size={size} color={color} />
               ),
-              href: "/profile", // This ensures navigation to the base profile without params
+              href: "/profile",
+              listeners: {
+                tabPress: (e: { preventDefault: () => void }) => {
+                  eventEmitter.emit('scrollToTop');
+                },
+              },
             }}
           />
           {/* Hide other screens from tab bar but keep them accessible */}
           <Tabs.Screen
             name="index"
             options={{
-              href: null, // This hides the tab
+              href: null, // Hides the tab
             }}
           />
           <Tabs.Screen
             name="poop"
             options={{
-              href: null, // This hides the tab
+              href: null, // Hides the tab
             }}
           />
           <Tabs.Screen
             name="fridge/[id]"
             options={{
-              href: null, // This hides the tab
+              href: null, // Hides the tab
             }}
           />
         </Tabs>

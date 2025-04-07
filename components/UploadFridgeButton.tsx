@@ -198,134 +198,136 @@ export default function UploadFridgeButton() {
         onRequestClose={hideModal}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <SafeAreaView style={styles.modalOverlay}>
-            <Animated.View 
-              style={[
-                styles.modalView,
-                {transform: [{ translateY: modalY }]}
-              ]}
-            >
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Share Your Fridge</Text>
-                <TouchableOpacity onPress={hideModal} style={styles.closeButton}>
-                  <Ionicons name="close" size={24} color="#333" />
-                </TouchableOpacity>
-              </View>
-              
-              <View style={styles.modalContent}>
-                {selectedImageURI ? (
-                  <View style={styles.imagePreviewContainer}>
-                    <Image 
-                      source={{ uri: selectedImageURI }} 
-                      style={styles.imagePreview} 
-                      resizeMode="cover"
-                    />
-                    <TouchableOpacity 
-                      onPress={pickImage} 
-                      style={styles.changeImageButton}
-                    >
-                      <Text style={styles.changeImageText}>Change Photo</Text>
-                      <Ionicons name="camera" size={18} color="#FFFFFF" style={{marginLeft: 6}} />
-                    </TouchableOpacity>
-                  </View>
-                ) : (
-                  <TouchableOpacity 
-                    style={styles.imagePicker} 
-                    onPress={pickImage}
-                    activeOpacity={0.8}
-                  >
-                    <View style={styles.imagePickerInner}>
-                      <MaterialCommunityIcons name="fridge-outline" size={42} color="#A0D1E6" />
-                      <Text style={styles.imagePickerText}>Tap to select a photo</Text>
-                      <View style={styles.uploadIconContainer}>
-                        <Ionicons name="cloud-upload-outline" size={24} color="#A0D1E6" />
-                      </View>
-                    </View>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback onPress={() => {}}>
+              <Animated.View 
+                style={[
+                  styles.modalView,
+                  {transform: [{ translateY: modalY }]}
+                ]}
+              >
+                <View style={styles.modalHeader}>
+                  <Text style={styles.modalTitle}>Share Your Fridge</Text>
+                  <TouchableOpacity onPress={hideModal} style={styles.closeButton}>
+                    <Ionicons name="close" size={24} color="#333" />
                   </TouchableOpacity>
-                )}
-                
-                <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Description</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="What's in your fridge today?"
-                    placeholderTextColor="#9CA3AF"
-                    value={description}
-                    onChangeText={setDescription}
-                    multiline={true}
-                    numberOfLines={3}
-                    maxLength={200}
-                  />
-                  <Text style={styles.charCount}>
-                    {description.length}/200
-                  </Text>
                 </View>
                 
-                {error ? 
-                  <View style={styles.errorContainer}>
-                    <Ionicons name="alert-circle" size={16} color="#E11D48" style={{marginRight: 6}} />
-                    <Text style={styles.errorText}>{error}</Text>
-                  </View> 
-                : null}
-                
-                <Animated.View 
-                  style={[
-                    styles.successContainer,
-                    {opacity: successOpacity}
-                  ]}
-                >
-                  <View style={styles.successInner}>
-                    <Ionicons name="checkmark-circle" size={32} color="#10B981" />
-                    <Text style={styles.successText}>Upload Successful!</Text>
+                <View style={styles.modalContent}>
+                  {selectedImageURI ? (
+                    <View style={styles.imagePreviewContainer}>
+                      <Image 
+                        source={{ uri: selectedImageURI }} 
+                        style={styles.imagePreview} 
+                        resizeMode="cover"
+                      />
+                      <TouchableOpacity 
+                        onPress={pickImage} 
+                        style={styles.changeImageButton}
+                      >
+                        <Text style={styles.changeImageText}>Change Photo</Text>
+                        <Ionicons name="camera" size={18} color="#FFFFFF" style={{marginLeft: 6}} />
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <TouchableOpacity 
+                      style={styles.imagePicker} 
+                      onPress={pickImage}
+                      activeOpacity={0.8}
+                    >
+                      <View style={styles.imagePickerInner}>
+                        <MaterialCommunityIcons name="fridge-outline" size={42} color="#A0D1E6" />
+                        <Text style={styles.imagePickerText}>Tap to select a photo</Text>
+                        <View style={styles.uploadIconContainer}>
+                          <Ionicons name="cloud-upload-outline" size={24} color="#A0D1E6" />
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                  
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.inputLabel}>Description</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="What's in your fridge today?"
+                      placeholderTextColor="#9CA3AF"
+                      value={description}
+                      onChangeText={setDescription}
+                      multiline={true}
+                      numberOfLines={3}
+                      maxLength={200}
+                    />
+                    <Text style={styles.charCount}>
+                      {description.length}/200
+                    </Text>
                   </View>
-                  {success && (
-                    <View style={styles.confettiContainer}>
-                      {/* Imagine confetti animation here */}
+                  
+                  {error ? 
+                    <View style={styles.errorContainer}>
+                      <Ionicons name="alert-circle" size={16} color="#E11D48" style={{marginRight: 6}} />
+                      <Text style={styles.errorText}>{error}</Text>
+                    </View> 
+                  : null}
+                  
+                  <Animated.View 
+                    style={[
+                      styles.successContainer,
+                      {opacity: successOpacity}
+                    ]}
+                  >
+                    <View style={styles.successInner}>
+                      <Ionicons name="checkmark-circle" size={32} color="#10B981" />
+                      <Text style={styles.successText}>Upload Successful!</Text>
+                    </View>
+                    {success && (
+                      <View style={styles.confettiContainer}>
+                        {/* Imagine confetti animation here */}
+                      </View>
+                    )}
+                  </Animated.View>
+                  
+                  {!success && (
+                    <View style={styles.buttonContainer}>
+                      {loading ? (
+                        <View style={styles.loadingContainer}>
+                          <ActivityIndicator size="large" color="#A0D1E6" />
+                          <Text style={styles.loadingText}>Uploading...</Text>
+                        </View>
+                      ) : (
+                        <>
+                          <TouchableOpacity
+                            style={[styles.button, styles.buttonCancel]}
+                            onPress={hideModal}
+                            activeOpacity={0.8}
+                          >
+                            <Text style={styles.buttonTextCancel}>Cancel</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={[
+                              styles.button, 
+                              styles.buttonUpload,
+                              !selectedImage && styles.buttonDisabled
+                            ]}
+                            onPress={handleUpload}
+                            disabled={!selectedImage}
+                            activeOpacity={0.8}
+                          >
+                            <Text style={[
+                              styles.buttonText,
+                              !selectedImage && styles.buttonTextDisabled
+                            ]}>
+                              Share Fridge
+                            </Text>
+                            <Ionicons name="arrow-forward" size={16} color={selectedImage ? "white" : "#9CA3AF"} style={{marginLeft: 8}} />
+                          </TouchableOpacity>
+                        </>
+                      )}
                     </View>
                   )}
-                </Animated.View>
-                
-                {!success && (
-                  <View style={styles.buttonContainer}>
-                    {loading ? (
-                      <View style={styles.loadingContainer}>
-                        <ActivityIndicator size="large" color="#A0D1E6" />
-                        <Text style={styles.loadingText}>Uploading...</Text>
-                      </View>
-                    ) : (
-                      <>
-                        <TouchableOpacity
-                          style={[styles.button, styles.buttonCancel]}
-                          onPress={hideModal}
-                          activeOpacity={0.8}
-                        >
-                          <Text style={styles.buttonTextCancel}>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={[
-                            styles.button, 
-                            styles.buttonUpload,
-                            !selectedImage && styles.buttonDisabled
-                          ]}
-                          onPress={handleUpload}
-                          disabled={!selectedImage}
-                          activeOpacity={0.8}
-                        >
-                          <Text style={[
-                            styles.buttonText,
-                            !selectedImage && styles.buttonTextDisabled
-                          ]}>
-                            Share Fridge
-                          </Text>
-                          <Ionicons name="arrow-forward" size={16} color={selectedImage ? "white" : "#9CA3AF"} style={{marginLeft: 8}} />
-                        </TouchableOpacity>
-                      </>
-                    )}
-                  </View>
-                )}
-              </View>
-            </Animated.View>
-          </SafeAreaView>
+                </View>
+              </Animated.View>
+            </TouchableWithoutFeedback>
+          </View>
         </TouchableWithoutFeedback>
       </Modal>
     </View>

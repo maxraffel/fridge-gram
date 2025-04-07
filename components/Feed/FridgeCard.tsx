@@ -270,10 +270,10 @@ export function FridgeCard({ fridge }: { fridge: Fridge }) {
   const handleShare = async () => {
     try {
       // Create shareable URL for this fridge
-      const shareUrl = `fridgegram://fridge/${fridge.id}`;
+      const shareUrl = `localhost:8081/fridge/${fridge.id}`;
       
       await Share.share({
-        message: Platform.OS === 'ios' ? 'Check out this fridge on FridgeGram!' : `Check out this fridge on FridgeGram! ${shareUrl}`,
+        message: Platform.OS === 'ios' ? '' : `${shareUrl}`,
         url: Platform.OS === 'ios' ? shareUrl : undefined,
         title: 'Check out this fridge on FridgeGram',
       });
@@ -341,10 +341,8 @@ export function FridgeCard({ fridge }: { fridge: Fridge }) {
         { transform: [{ scale: cardScale }], opacity: fadeAnim }
       ]}
     >
-      <TouchableOpacity 
-        activeOpacity={0.95}
-        onPress={navigateToFridgeDetail}
-      >
+      {/* Removed onPress handler so clicking the card doesn't navigate */}
+      <TouchableOpacity activeOpacity={0.95}>
         <View style={styles.fridgeCard}>
           {/* Owner info section at the top with streak */}
           <View style={styles.ownerSection}>
@@ -432,9 +430,9 @@ export function FridgeCard({ fridge }: { fridge: Fridge }) {
             // If user is not logged in, is the owner, or has already rated, show only the average rating
             <View style={styles.averageRatingContainer}>
               <View style={styles.ratingHeader}>
-                <Ionicons name="star" size={18} color="#F3B61F" />
+                <MaterialCommunityIcons name="egg" size={18} color="#F3B61F" />
                 <Text style={styles.ratingInfo}>
-                  {fridge.averageRating.toFixed(1)} out of 12 ({fridge.ratingsCount} {fridge.ratingsCount === 1 ? 'rating' : 'ratings'})
+                  {fridge.averageRating.toFixed(1)} out of 12 eggs ({fridge.ratingsCount} {fridge.ratingsCount === 1 ? 'rating' : 'ratings'})
                 </Text>
               </View>
               
@@ -527,11 +525,15 @@ export function FridgeCard({ fridge }: { fridge: Fridge }) {
                 styles.expandableContent,
                 { opacity: contentHeight }
               ]}
+              onStartShouldSetResponder={() => true} // Prevent touch propagation to the parent container
             >
               {/* Comments section */}
               <View style={styles.commentsSection}>
                 {/* Show comment input field */}
-                <View style={styles.commentInputContainer}>
+                <View 
+                  style={styles.commentInputContainer}
+                  onStartShouldSetResponder={() => true} // Ensure touches here are captured
+                >
                   <TextInput
                     placeholder="Add a comment..."
                     value={commentText}

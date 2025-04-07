@@ -18,7 +18,7 @@ const GameScreen = ({ onGameOver }) => {
 
     const itemSpawner = setInterval(() => {
       setItems((prevItems) => [...prevItems, generateRandomItem()])
-    }, 2000)
+    }, 3000)
 
     return () => {
       clearInterval(gameTimer)

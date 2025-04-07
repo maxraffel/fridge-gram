@@ -1,11 +1,10 @@
 let itemId = 0
 
 const foodItems = [
-  { name: "Apple", imageUrl: require('../assets/images/myfridge.png') },
-  { name: "Milk", imageUrl: require('../assets/images/myfridge.png') },
-  { name: "Cheese", imageUrl: require('../assets/images/myfridge.png') },
-  { name: "Yogurt", imageUrl: require('../assets/images/myfridge.png') },
-  { name: "Carrot", imageUrl: require('../assets/images/myfridge.png') },
+  { name: "Grapes", imageUrl: require('../assets/images/grapes.png'), time: 5 },
+  { name: "Milk", imageUrl: require('../assets/images/milk.png'), time: 10},
+  { name: "Cheese", imageUrl: require('../assets/images/cheese.png'), time: 20 },
+  { name: "Eggs", imageUrl: require('../assets/images/eggs.png'), time: 10 },
 ]
 
 export const generateRandomItem = () => {
@@ -13,7 +12,7 @@ export const generateRandomItem = () => {
   return {
     id: itemId++,
     ...randomFood,
-    expirationTime: Math.floor(Math.random() * 20) + 10, // Random time between 10-30 seconds
+    expirationTime: randomFood.time, // Random time between 5-20 seconds
     position: {
       top: Math.random() * 80 + "%",
       left: Math.random() * 80 + "%",

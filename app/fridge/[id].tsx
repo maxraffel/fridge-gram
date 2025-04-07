@@ -58,18 +58,18 @@ export default function FridgeDetailScreen() {
     
     // Create a shareable URL for this fridge
     // This would depend on your app's domain configuration
-    const shareUrl = `fridgegram://fridge/${fridge.id}`;
+    const shareUrl = `localhost:8081/fridge/${fridge.id}`;
     
     try {
       if (Platform.OS === 'ios') {
         await Share.share({
           url: shareUrl,
-          message: 'Check out this fridge on FridgeGram',
+          message: '',
           title: 'Check out this fridge on FridgeGram',
         });
       } else {
         await Share.share({
-          message: `Check out this fridge on FridgeGram: ${shareUrl}`,
+          message: `: ${shareUrl}`,
           title: 'Check out this fridge on FridgeGram',
         });
       }
