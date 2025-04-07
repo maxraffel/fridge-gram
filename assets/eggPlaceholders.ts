@@ -1,0 +1,15 @@
+// These are base64 encoded SVGs for egg-shaped ratings using the professional egg SVG
+
+export const filledEggBase64 = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTYsMzJDOS4zMTksMzIsMy44ODMsMjYuNTY0LDMuODgzLDE5Ljg4NEMzLjg4MywxMy4yNTIsOS4xMjIsMCwxNiwwYzYuODc4LDAsMTIuMTE3LDEzLjI1MiwxMi4xMTcsMTkuODg0CgkJQzI4LjExNSwyNi41NjQsMjIuNjgsMzIsMTYsMzJ6IiBmaWxsPSIjRkZENzAwIiBzdHJva2U9IiNCODhCMDAiIHN0cm9rZS13aWR0aD0iMSIgLz4KPC9zdmc+Cg==';
+
+export const emptyEggBase64 = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTYsMzJDOS4zMTksMzIsMy44ODMsMjYuNTY0LDMuODgzLDE5Ljg4NEMzLjg4MywxMy4yNTIsOS4xMjIsMCwxNiwwYzYuODc4LDAsMTIuMTE3LDEzLjI1MiwxMi4xMTcsMTkuODg0CgkJQzI4LjExNSwyNi41NjQsMjIuNjgsMzIsMTYsMzJ6IE0xNiwxLjk4OGMtNS4zMzYsMC0xMC4xMjksMTIuMTU1LTEwLjEyOSwxNy44OTZjMCw1LjU4NSw0LjU0NCwxMC4xMjgsMTAuMTI5LDEwLjEyOAoJCXMxMC4xMjktNC41NDMsMTAuMTI5LTEwLjEyOEMyNi4xMjksMTQuMTQzLDIxLjMzNiwxLjk4OCwxNiwxLjk4OHoiIGZpbGw9IiNGMEYwRjAiIHN0cm9rZT0iI0JCQkJCQiIgc3Ryb2tlLXdpZHRoPSIxIiAvPgo8L3N2Zz4K';
+
+// For debugging/development - convert the SVG back to string
+export function getSvgContent(base64: string): string {
+  try {
+    const base64Content = base64.split('base64,')[1];
+    return atob(base64Content);
+  } catch (e) {
+    return 'Error decoding SVG';
+  }
+}

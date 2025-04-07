@@ -47,7 +47,7 @@ export function GoogleLogin() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Sign in to FridgeGram COMPONENT</Text>
+      <Text>Sign in to FridgeGram</Text>
       <Button disabled={!request} title="Sign in with Google" onPress={handleLogin} />
     </View>
   );
